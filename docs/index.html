@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
+      />
+      <title>Rocket Station</title>
+      <link href='https://fonts.googleapis.com/css?family=Lato|Montserrat' rel='stylesheet'>
+      <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+      <style>
+        *,
+        ::before,
+        ::after {
+          box-sizing: inherit;
+        }
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
+
+        body {
+          background-color: white;
+          font-family: Lato, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 1.5rem;
+          font-weight: 300;
+          height: 100%;
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        html {
+          background-color: white;
+          box-sizing: border-box;
+          font-size: 62.5%;
+          height: 100%;
+          -webkit-text-size-adjust: 100%;
+          -moz-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+        }
+
+        textarea {
+          resize: vertical;
+        }
+
+        .page {
+          background-color: white;
+          height: 100%;
+        }
+
+        .toggle {
+          display: none;
+        }
+
+        .segment {
+          bottom: 1.8rem;
+          left: 1.8rem;
+          opacity: 0;
+          position: fixed;
+          right: 1.8rem;
+          top: 1.8rem;
+          transition-duration: 250ms;
+          transition-property: opacity;
+          transition-timing-function: linear;
+          z-index: -1;
+        }
+
+        .toggle#hero:checked~.hero {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#about:checked~.about {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#experience:checked~.experience {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .hero {
+          background-color: #eee;
+          background-image: url('./hero-sm.jpg');
+          background-position: center;
+          background-size: cover;
+          display: flex;
+          overflow-y: auto;
+        }
+
+        .hero-content {
+          margin-bottom: auto;
+          margin-top: auto;
+          padding: 1.8rem;
+          width: 100%;
+        }
+
+        .hero-title {
+          color: white;
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 4.8rem;
+          font-weight: 900;
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          text-align: center;
+          text-transform: uppercase;
+        }
+
+        .hero-descr {
+          margin-bottom: 0;
+          margin-top: 0;
+          padding-left: 0;
+        }
+
+        .hero-descr-item {
+          color: rgba(0, 0, 0, 0.25);
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 2.4rem;
+          font-weight: 900;
+          list-style-type: none;
+          text-align: center;
+        }
+
+        .about {
+          background-color: white;
+        }
+
+        .about-case {
+          display: flex;
+          height: 100%;
+          left: 0;
+          opacity: 0;
+          overflow-y: auto;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: -1;
+        }
+
+        .toggle#about-us:checked~.about-us {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#about-design:checked~.about-design {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#about-develop:checked~.about-develop {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#about-care:checked~.about-care {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .toggle#about-outro:checked~.about-outro {
+          opacity: 1;
+          z-index: 0;
+        }
+
+        .about-case-content {
+          margin: auto;
+          max-width: 75rem;
+          width: 100%;
+        }
+
+        .about-case .images {
+          margin-bottom: 1.8rem;
+          overflow-x: auto;
+          padding: 0.8rem;
+          text-align: center;
+          white-space: nowrap;
+          width: 100%;
+        }
+
+        .about-case .image {
+          background-color: black;
+          border-radius: 100%;
+          box-shadow: 0 0 0 0.4rem black, 0 0 0 0.6rem white, 0 0 0 0.8rem black;
+          display: inline-block;
+          flex-shrink: 0;
+          height: 4.8rem;
+          margin-left: 2.6rem;
+          overflow: hidden;
+          width: 4.8rem;
+        }
+
+        .about-case .image:first-child {
+          margin-left: 0;
+        }
+
+        .about-case .image>img {
+          display: block;
+          height: 100%;
+          margin: auto;
+          width: 100%;
+        }
+
+        .about-case .image>svg {
+          display: block;
+          height: 100%;
+          margin: auto;
+          width: 100%;
+        }
+
+        .about-case p {
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          text-align: center;
+        }
+
+        .about-case p>strong {
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-weight: 400;
+        }
+
+        .about-menu {
+          background-color: white;
+          bottom: 0;
+          position: absolute;
+          right: 0;
+        }
+
+        .about-menu-content {
+          display: flex;
+          margin-bottom: 0;
+          margin-top: 0;
+          padding-left: 0;
+        }
+
+        .about-menu-item {
+          list-style-type: none;
+        }
+
+        .about-menu-item-content {
+          cursor: pointer;
+          display: none;
+          height: 2.4rem;
+          margin-left: 1.8rem;
+          width: 2.4rem;
+        }
+
+        .about-menu-item:first-child .about-menu-item-content {
+          margin-left: 0;
+        }
+
+        .about-menu-item-icon {
+          display: none;
+          height: 100%;
+          width: 100%;
+        }
+
+        .toggle#about-us:checked~.about-menu [for='about-design'] {
+          display: block;
+        }
+
+        .toggle#about-us:checked~.about-menu [for='about-design'] .about-menu-item-icon:last-child {
+          display: block;
+        }
+
+        .toggle#about-design:checked~.about-menu [for='about-us'] {
+          display: block;
+        }
+
+        .toggle#about-design:checked~.about-menu [for='about-us'] .about-menu-item-icon:first-child {
+          display: block;
+        }
+
+        .toggle#about-design:checked~.about-menu [for='about-develop'] {
+          display: block;
+        }
+
+        .toggle#about-design:checked~.about-menu [for='about-develop'] .about-menu-item-icon:last-child {
+          display: block;
+        }
+
+        .toggle#about-develop:checked~.about-menu [for='about-design'] {
+          display: block;
+        }
+
+        .toggle#about-develop:checked~.about-menu [for='about-design'] .about-menu-item-icon:first-child {
+          display: block;
+        }
+
+        .toggle#about-develop:checked~.about-menu [for='about-care'] {
+          display: block;
+        }
+
+        .toggle#about-develop:checked~.about-menu [for='about-care'] .about-menu-item-icon:last-child {
+          display: block;
+        }
+
+        .toggle#about-care:checked~.about-menu [for='about-develop'] {
+          display: block;
+        }
+
+        .toggle#about-care:checked~.about-menu [for='about-develop'] .about-menu-item-icon:first-child {
+          display: block;
+        }
+
+        .toggle#about-care:checked~.about-menu [for='about-outro'] {
+          display: block;
+        }
+
+        .toggle#about-care:checked~.about-menu [for='about-outro'] .about-menu-item-icon:last-child {
+          display: block;
+        }
+
+        .toggle#about-outro:checked~.about-menu [for='about-care'] {
+          display: block;
+        }
+
+        .toggle#about-outro:checked~.about-menu [for='about-care'] .about-menu-item-icon:first-child {
+          display: block;
+        }
+
+        .experience {
+          background-color: #eee;
+          background-image: url('./experience-sm.jpg');
+          background-position: center;
+          background-size: cover;
+          counter-reset: case;
+        }
+
+        .experience-menu {
+          height: 100%;
+        }
+
+        .experience-menu-content {
+          height: 100%;
+          margin-bottom: 0;
+          margin-top: 0;
+          overflow-y: auto;
+          padding-left: 0;
+        }
+
+        .experience-menu-item {
+          height: 10%;
+          list-style-type: none;
+          min-height: 6rem;
+        }
+
+        .experience-menu-item-content {
+          align-items: center;
+          color: rgba(0, 0, 0, 0.75);
+          cursor: pointer;
+          display: flex;
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 2.4rem;
+          font-weight: 900;
+          height: 100%;
+          justify-content: center;
+          transition-duration: 250ms, 250ms;
+          transition-property: background-color, color;
+          transition-timing-function: linear, linear;
+        }
+
+        .experience-menu-item-content:hover {
+          background-color: rgba(0, 0, 0, 0.5);
+          color: rgba(255, 255, 255, 0.75);
+        }
+
+        .experience-case {
+          background-color: white;
+          counter-increment: case;
+          height: 100%;
+          left: 0;
+          opacity: 0;
+          overflow-y: auto;
+          position: absolute;
+          top: 0;
+          transition-duration: 250ms, 250ms;
+          transition-property: opacity, transform;
+          transition-timing-function: linear, linear;
+          width: 100%;
+          z-index: -1;
+        }
+
+        .experience-ux {
+          transform: translate(-100%, -100%);
+        }
+
+        .experience-front-end {
+          transform: translate(-100%, 100%);
+        }
+
+        .experience-back-end {
+          transform: translate(100%, -100%);
+        }
+
+        .experience-cloud {
+          transform: translate(100%, 100%);
+        }
+
+        .experience-iot {
+          transform: translate(-100%, 0);
+        }
+
+        .experience-r-n-d {
+          transform: translate(100%, 0);
+        }
+
+        .toggle[name='experience']:checked+.experience-case {
+          opacity: 1;
+          transform: translate(0, 0);
+          z-index: 0;
+        }
+
+        .experience-case h3 {
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 2.4rem;
+          font-weight: 400;
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          text-align: center;
+        }
+
+        .experience-case p {
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+        }
+
+        .experience-case p>strong {
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-weight: 400;
+        }
+
+        .experience-case ul {
+          list-style-position: inside;
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          padding-left: 1.8rem;
+        }
+
+        .experience-case ul.experience-case-r-n-d-projects {
+          counter-reset: project;
+          padding-left: 0;
+        }
+
+        .experience-case img {
+          display: block;
+          margin-bottom: 1.8rem;
+          margin-left: auto;
+          margin-right: auto;
+          max-width: 30rem;
+          width: 100%;
+        }
+
+        .experience-case blockquote {
+          border-right: 3px solid #ffe012;
+          color: gray;
+          font-style: italic;
+          font-weight: 300;
+          margin: 0 0 1.8rem;
+          padding-right: 1.8rem;
+          text-align: right;
+        }
+
+        .experience-case a {
+          color: dodgerblue;
+        }
+
+        .experience-case-r-n-d-project {
+          counter-increment: project;
+          list-style-type: none;
+        }
+
+        .experience-case-r-n-d-project::before {
+          content: 'Project#' counter(project) '.';
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+        }
+
+        .experience-case-close {
+          background-color: white;
+          cursor: pointer;
+          height: 2.4rem;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 2.4rem;
+          z-index: 1;
+        }
+
+        .experience-case-close-icon {
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+
+        .experience-case-left {
+          background-color: #ffe012;
+        }
+
+        .experience-case-left::after {
+          color: white;
+          content: 'CASE#' counter(case);
+          display: block;
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 2.4rem;
+          font-weight: 900;
+          text-align: right;
+        }
+
+        .experience-case-right {
+          background-color: white;
+        }
+
+        .experience-case-content {
+          padding: 1.8rem;
+        }
+
+        .toggle#contact:checked~.form-wrapper {
+          bottom: 0;
+          display: block;
+          left: 0;
+          position: fixed;
+          right: 0;
+          top: 0;
+          z-index: 1;
+        }
+
+        .form {
+          background-image: linear-gradient(45deg, #753a88, #cc2b5e);
+          bottom: 0;
+          color: white;
+          display: flex;
+          left: 0;
+          max-width: 60rem;
+          overflow-y: auto;
+          position: fixed;
+          top: 0;
+          transform: translateX(-100%);
+          transition-duration: 250ms;
+          transition-property: transform;
+          transition-timing-function: linear;
+          width: 100%;
+          z-index: 1;
+        }
+
+        .toggle#contact:checked~.form {
+          transform: translateX(0);
+        }
+
+        .form-close {
+          background-color: #ffe012;
+          cursor: pointer;
+          height: 2.4rem;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 2.4rem;
+        }
+
+        .form-close-icon {
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+
+        .form-content {
+          margin-bottom: auto;
+          margin-top: auto;
+          padding: 4.2rem 1.8rem;
+          width: 100%;
+        }
+
+        .form-title {
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-size: 2.4rem;
+          font-weight: 400;
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          text-align: center;
+        }
+
+        .form-descr {
+          color: rgba(255, 255, 255, 0.75);
+          margin-bottom: 1.8rem;
+          margin-top: 0;
+          text-align: center;
+        }
+
+        .form-label {
+          color: rgba(255, 255, 255, 0.75);
+          display: block;
+          font-size: 1.2rem;
+          text-transform: uppercase;
+          width: 100%;
+        }
+
+        .form-input {
+          background-color: rgba(255, 255, 255, 0.25);
+          border: 3px solid transparent;
+          display: block;
+          font-family: inherit;
+          line-height: inherit;
+          margin-bottom: 1.8rem;
+          outline: 0;
+          padding: 1.8rem;
+          transition-duration: 250ms, 250ms;
+          transition-property: background-color, border-color;
+          transition-timing-function: linear, linear;
+          width: 100%;
+        }
+
+        .form-input:hover {
+          border-color: #ffe012;
+        }
+
+        .form-input:focus {
+          background-color: white;
+          border-color: #ffe012;
+        }
+
+        .form-button {
+          background-color: rgba(255, 255, 255, 0.25);
+          border: 3px solid #ffe012;
+          color: #ffe012;
+          cursor: pointer;
+          display: block;
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          font-weight: 900;
+          padding: 1.8rem;
+          text-transform: uppercase;
+          transition-duration: 250ms;
+          transition-property: background-color;
+          transition-timing-function: linear;
+          width: 100%;
+        }
+
+        .form-button:hover {
+          background-color: rgba(255, 255, 255, 0.75);
+        }
+
+        .form-button:active {
+          background-color: white;
+        }
+
+        .menu {
+          bottom: 0;
+          display: flex;
+          position: fixed;
+          right: 0;
+          top: 0;
+          width: 1.8rem;
+        }
+
+        .menu-content {
+          margin: auto;
+          padding-left: 0;
+          width: 100%;
+        }
+
+        .menu-item {
+          list-style-type: none;
+        }
+
+        .menu-item-content {
+          cursor: pointer;
+          display: block;
+          padding-bottom: 1.8rem;
+          padding-top: 1.8rem;
+          position: relative;
+        }
+
+        .menu-item-content::after {
+          background-color: black;
+          border-radius: 100%;
+          box-shadow: 0 0 0 0rem white, 0 0 0 0rem black;
+          content: '';
+          display: block;
+          height: 0.9rem;
+          margin-left: auto;
+          margin-right: auto;
+          transition-duration: 250ms, 250ms;
+          transition-property: box-shadow, transform;
+          transition-timing-function: linear, linear;
+          width: 0.9rem;
+        }
+
+        .menu-item-content-contact::after {
+          background-color: #ffe012;
+          box-shadow: 0 0 0 0rem white, 0 0 0 0rem #ffe012;
+        }
+
+        .toggle#hero:checked~.menu .menu-item-content[for='hero']::after {
+          box-shadow: 0 0 0 0.3rem white, 0 0 0 0.6rem black;
+          transform: scale(0.75);
+        }
+
+        .toggle#about:checked~.menu .menu-item-content[for='about']::after {
+          box-shadow: 0 0 0 0.3rem white, 0 0 0 0.6rem black;
+          transform: scale(0.75);
+        }
+
+        .toggle#experience:checked~.menu .menu-item-content[for='experience']::after {
+          box-shadow: 0 0 0 0.3rem white, 0 0 0 0.6rem black;
+          transform: scale(0.75);
+        }
+
+        .toggle#contact:checked~.menu .menu-item-content[for='contact']::after {
+          box-shadow: 0 0 0 0.3rem white, 0 0 0 0.6rem #ffe012;
+          transform: scale(0.75);
+        }
+
+        @keyframes menu-item-text {
+          0% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+          75% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(0);
+          }
+        }
+
+        .menu-item-text {
+          animation-duration: 1000ms;
+          animation-name: menu-item-text;
+          animation-timing-function: linear;
+          background-color: white;
+          box-shadow: -1px 1px 3px rgba(0, 0, 0, 0.25);
+          color: black;
+          font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+          opacity: 0;
+          padding-left: 0.9rem;
+          padding-right: 0.9rem;
+          position: absolute;
+          right: calc(50% + 0.9rem);
+          top: 0.75rem;
+          transform: translateX(100%);
+          transition-duration: 250ms, 250ms;
+          transition-property: opacity, transform;
+        }
+
+        .menu-item:hover .menu-item-text {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        @media screen and (min-width: 37.5em) {
+          .segment {
+            bottom: 3.6rem;
+            left: 3.6rem;
+            right: 3.6rem;
+            top: 3.6rem;
+          }
+          .menu {
+            width: 3.6rem;
+          }
+        }
+
+        @media screen and (min-width: 56.25em) {
+          body {
+            font-size: 1.8rem;
+          }
+          .hero {
+            background-image: url('./hero-lg.jpg');
+          }
+          .hero-content {
+            padding: 3.6rem;
+          }
+          .hero-title {
+            font-size: 9.6rem;
+            margin-bottom: 3.6rem;
+          }
+          .hero-descr {
+            display: flex;
+            justify-content: center;
+          }
+          .hero-descr-item {
+            border-left: 3px solid rgba(0, 0, 0, 0.25);
+            font-size: 3.6rem;
+            margin-left: 1.8rem;
+            padding-left: 1.8rem;
+          }
+          .hero-descr-item:first-child {
+            border-left-width: 0;
+            margin-left: 0;
+            padding-left: 0;
+          }
+          .about-case {
+            padding-left: 48.6rem;
+          }
+          .about-case::before {
+            align-items: center;
+            background-image: url('./about.jpg');
+            background-position: center top;
+            background-size: cover;
+            bottom: 0;
+            color: rgba(0, 0, 0, 0.25);
+            display: flex;
+            font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+            font-size: 9.6rem;
+            font-weight: 900;
+            justify-content: center;
+            left: 0;
+            position: absolute;
+            text-transform: uppercase;
+            top: 0;
+            width: 45rem;
+          }
+          .toggle#about-us:checked~.about-case::before {
+            content: 'we';
+          }
+          .toggle#about-design:checked~.about-case::before {
+            content: 'design';
+          }
+          .toggle#about-develop:checked~.about-case::before {
+            content: 'develop';
+          }
+          .toggle#about-care:checked~.about-case::before {
+            content: 'care';
+          }
+          .toggle#about-outro:checked~.about-case::before {
+            content: '!';
+          }
+          .about-case .images {
+            margin-bottom: 3.6rem;
+          }
+          .about-case p {
+            margin-bottom: 3.6rem;
+          }
+          .about-menu-item-content {
+            height: 3.6rem;
+            width: 3.6rem;
+          }
+          .experience {
+            background-image: url('./experience-lg.jpg');
+          }
+          .experience-menu-item {
+            min-height: 7.2rem;
+          }
+          .experience-menu-item-content {
+            font-size: 3.6rem;
+          }
+          .experience-case {
+            overflow-y: visible;
+          }
+          .experience-case h3 {
+            font-size: 3.6rem;
+            margin-bottom: 3.6rem;
+          }
+          .experience-case p {
+            margin-bottom: 3.6rem;
+          }
+          .experience-case ul {
+            margin-bottom: 3.6rem;
+            padding-left: 3.6rem;
+          }
+          .experience-case img {
+            margin-bottom: 3.6rem;
+          }
+          .experience-case blockquote {
+            margin: 0 0 3.6rem;
+            padding-right: 3.6rem;
+          }
+          .experience-case-close {
+            height: 3.6rem;
+            width: 3.6rem;
+          }
+          .experience-case-left {
+            bottom: 0;
+            display: flex;
+            left: 0;
+            padding-bottom: 7.2rem;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+          }
+          .experience-case-left::after {
+            bottom: 0;
+            font-size: 4.8rem;
+            position: absolute;
+            right: 0;
+          }
+          .experience-case-right {
+            bottom: 0;
+            display: flex;
+            padding: 3.6rem;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 50%;
+          }
+          .experience-case-content {
+            max-height: 100%;
+            margin: auto;
+            overflow-y: auto;
+            margin: auto;
+            width: 100%;
+          }
+          .form-close {
+            height: 3.6rem;
+            width: 3.6rem;
+          }
+          .form-content {
+            padding: 7.2rem 3.6rem;
+          }
+          .form-title {
+            font-size: 3.6rem;
+            margin-bottom: 3.6rem;
+          }
+          .form-descr {
+            margin-bottom: 3.6rem;
+          }
+          .form-input {
+            margin-bottom: 3.6rem;
+          }
+        }
+
+        @media screen and (min-width: 75em) {
+          .segment {
+            bottom: 7.2rem;
+            left: 7.2rem;
+            right: 7.2rem;
+            top: 7.2rem;
+          }
+          .menu {
+            width: 7.2rem;
+          }
+        }
+      </style>
+   </head>
+   <body>
+      <section class='page'>
+         <input checked class='toggle' id='hero' name='segment' type='radio'>
+         <section class='segment hero'>
+            <div class='hero-content'>
+               <h1 class='hero-title'>Rocket Station</h1>
+               <ul class='hero-descr'>
+                  <li class='hero-descr-item'>We design</li>
+                  <li class='hero-descr-item'>We develop</li>
+                  <li class='hero-descr-item'>We care</li>
+               </ul>
+            </div>
+         </section>
+         <input class='toggle' id='about' name='segment' type='radio'>
+         <section class='segment about'>
+            <input checked class='toggle' id='about-us' name='about' type='radio'> <input class='toggle' id='about-design' name='about' type='radio'> <input class='toggle' id='about-develop' name='about' type='radio'> <input class='toggle' id='about-care' name='about' type='radio'> <input class='toggle' id='about-outro' name='about' type='radio'>
+            <article class='about-case about-us'>
+               <div class='about-case-content'>
+                  <div class='images'>
+                     <div class='image'> <img alt='Oleksii Bilous' src='./bilous.jpg'> </div>
+                     <div class='image'> <img alt='Oleksii Pysanko' src='./pysanko.jpg'> </div>
+                  </div>
+                  <p>We create products for startups and corporations around the world</p>
+                  <div class='images'>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#f0f0f0' r='256'></circle>
+                           <path d='M244.87 256H512c0-23.106-3.08-45.49-8.819-66.783H244.87V256zm0-133.565h229.556a257.35 257.35 0 0 0-59.07-66.783H244.87v66.783zM256 512c60.249 0 115.626-20.824 159.356-55.652H96.644C140.374 491.176 195.751 512 256 512zM37.574 389.565h436.852a254.474 254.474 0 0 0 28.755-66.783H8.819a254.474 254.474 0 0 0 28.755 66.783z' fill='#d80027'></path>
+                           <path d='M118.584 39.978h23.329l-21.7 15.765 8.289 25.509-21.699-15.765-21.699 15.765 7.16-22.037a257.407 257.407 0 0 0-49.652 55.337h7.475l-13.813 10.035a255.58 255.58 0 0 0-6.194 10.938l6.596 20.301-12.306-8.941a253.567 253.567 0 0 0-8.372 19.873l7.267 22.368h26.822l-21.7 15.765 8.289 25.509-21.699-15.765-12.998 9.444A258.468 258.468 0 0 0 0 256h256V0c-50.572 0-97.715 14.67-137.416 39.978zm9.918 190.422l-21.699-15.765L85.104 230.4l8.289-25.509-21.7-15.765h26.822l8.288-25.509 8.288 25.509h26.822l-21.7 15.765 8.289 25.509zm-8.289-100.083l8.289 25.509-21.699-15.765-21.699 15.765 8.289-25.509-21.7-15.765h26.822l8.288-25.509 8.288 25.509h26.822l-21.7 15.765zM220.328 230.4l-21.699-15.765L176.93 230.4l8.289-25.509-21.7-15.765h26.822l8.288-25.509 8.288 25.509h26.822l-21.7 15.765 8.289 25.509zm-8.289-100.083l8.289 25.509-21.699-15.765-21.699 15.765 8.289-25.509-21.7-15.765h26.822l8.288-25.509 8.288 25.509h26.822l-21.7 15.765zm0-74.574l8.289 25.509-21.699-15.765-21.699 15.765 8.289-25.509-21.7-15.765h26.822l8.288-25.509 8.288 25.509h26.822l-21.7 15.765z' fill='#0052b4'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#f0f0f0' r='256'></circle>
+                           <path d='M52.92 100.142c-20.109 26.163-35.272 56.318-44.101 89.077h133.178L52.92 100.142zm450.261 89.077c-8.829-32.758-23.993-62.913-44.101-89.076l-89.075 89.076h133.176zM8.819 322.784c8.83 32.758 23.993 62.913 44.101 89.075l89.074-89.075H8.819zM411.858 52.921c-26.163-20.109-56.317-35.272-89.076-44.102v133.177l89.076-89.075zM100.142 459.079c26.163 20.109 56.318 35.272 89.076 44.102V370.005l-89.076 89.074zm89.075-450.26c-32.758 8.83-62.913 23.993-89.075 44.101l89.075 89.075V8.819zm133.566 494.362c32.758-8.83 62.913-23.993 89.075-44.101l-89.075-89.075v133.176zm47.222-180.397l89.075 89.076c20.108-26.162 35.272-56.318 44.101-89.076H370.005z' fill='#0052b4'></path>
+                           <g fill='#d80027'>
+                              <path d='M509.833 222.609H289.392V2.167A258.556 258.556 0 0 0 256 0c-11.319 0-22.461.744-33.391 2.167v220.441H2.167A258.556 258.556 0 0 0 0 256c0 11.319.744 22.461 2.167 33.391h220.441v220.442a258.35 258.35 0 0 0 66.783 0V289.392h220.442A258.533 258.533 0 0 0 512 256c0-11.317-.744-22.461-2.167-33.391z'></path>
+                              <path d='M322.783 322.784L437.019 437.02a256.636 256.636 0 0 0 15.048-16.435l-97.802-97.802h-31.482v.001zm-133.566 0h-.002L74.98 437.019a256.636 256.636 0 0 0 16.435 15.048l97.802-97.804v-31.479zm0-133.565v-.002L74.981 74.98a256.636 256.636 0 0 0-15.048 16.435l97.803 97.803h31.481zm133.566 0L437.02 74.981a256.328 256.328 0 0 0-16.435-15.047l-97.802 97.803v31.482z'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <path d='M512 256c0 141.384-114.616 256-256 256S0 397.384 0 256C0 256.06 256 .029 256 0c141.384 0 256 114.616 256 256z' fill='#0052b4'></path>
+                           <g fill='#f0f0f0'>
+                              <path d='M256 0l-.043.001L256 0zm-.685 256H256v-.685l-.685.685z'></path>
+                              <path d='M256 133.566V.001h-.043C114.592.024 0 114.629 0 256h133.565v-75.212L208.777 256h46.539l.685-.685v-46.536l-75.213-75.213H256z'></path>
+                           </g>
+                           <g fill='#d80027'>
+                              <path d='M129.515 33.391a257.222 257.222 0 0 0-96.124 96.124V256h66.783V100.174H256V33.391H129.515z'></path>
+                              <path d='M256 224.519l-90.953-90.952h-31.481c0-.001 0 0 0 0L255.999 256H256v-31.481z'></path>
+                           </g>
+                           <path d='M154.395 300.522l14.05 29.378 31.727-7.333-14.208 29.302 25.514 20.233-31.767 7.16.089 32.564-25.405-20.373-25.404 20.373.089-32.564-31.768-7.16 25.515-20.233-14.21-29.302 31.729 7.333zm228.889 55.652l7.025 14.689 15.864-3.667-7.105 14.651 12.758 10.117-15.884 3.58.044 16.282-12.702-10.187-12.702 10.187.044-16.282-15.883-3.58 12.757-10.117-7.104-14.651 15.863 3.667zm-65.351-155.826l7.024 14.69 15.864-3.668-7.104 14.651 12.757 10.117-15.883 3.58.043 16.282-12.701-10.187L305.231 256l.043-16.282-15.883-3.58 12.757-10.117-7.104-14.651 15.864 3.668zm65.351-89.044l7.025 14.69 15.864-3.667-7.104 14.651 12.756 10.116-15.883 3.581.044 16.282-12.702-10.187-12.702 10.187.044-16.282-15.883-3.581 12.756-10.116-7.103-14.651 15.863 3.667zm57.084 66.783l7.024 14.69 15.864-3.668-7.104 14.651 12.757 10.117-15.884 3.581.044 16.281-12.701-10.186-12.702 10.186.043-16.281-15.883-3.581 12.757-10.117-7.104-14.651 15.863 3.668zM399.55 256l5.525 17.006h17.882l-14.467 10.511 5.527 17.005-14.467-10.51-14.466 10.51 5.525-17.005-14.466-10.511h17.881z' fill='#f0f0f0'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#f0f0f0' r='256'></circle>
+                           <path d='M352.393 200.348H288.13L256 144.696l-32.129 55.652h-64.264L191.741 256l-32.134 55.652h64.264L256 367.304l32.13-55.652h64.263L320.259 256l32.134-55.652zM295.475 256l-19.736 34.188h-39.475L216.525 256l19.738-34.188h39.475L295.475 256zM256 187.623l7.346 12.724h-14.69L256 187.623zm-59.214 34.189h14.692l-7.346 12.724-7.346-12.724zm0 68.376l7.347-12.724 7.346 12.724h-14.693zM256 324.376l-7.345-12.724h14.691L256 324.376zm59.214-34.188h-14.692l7.347-12.724 7.345 12.724zm-14.692-68.376h14.692l-7.346 12.724-7.346-12.724zm114.835-166.16H96.643a257.293 257.293 0 0 0-59.069 66.783h436.852a257.346 257.346 0 0 0-59.069-66.783zM96.643 456.348h318.713a257.293 257.293 0 0 0 59.069-66.783H37.574a257.346 257.346 0 0 0 59.069 66.783z' fill='#0052b4'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#ffda44' r='256'></circle>
+                           <path d='M0 256C0 114.616 114.616 0 256 0s256 114.616 256 256' fill='#338af3'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <path d='M0 256c0 31.314 5.633 61.31 15.923 89.043L256 356.174l240.077-11.13C506.368 317.31 512 287.314 512 256s-5.632-61.31-15.923-89.043L256 155.826l-240.077 11.13C5.633 194.69 0 224.686 0 256z'></path>
+                           <path d='M256 0C145.929 0 52.094 69.472 15.923 166.957h480.155C459.906 69.472 366.071 0 256 0z' fill='#0052b4'></path>
+                           <path d='M496.077 345.043H15.923C52.094 442.527 145.929 512 256 512s203.906-69.473 240.077-166.957z' fill='#f0f0f0'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#f0f0f0' r='256'></circle>
+                           <path d='M256 0C145.929 0 52.094 69.472 15.923 166.957h480.155C459.906 69.472 366.071 0 256 0z' fill='#a2001d'></path>
+                           <path d='M256 512c110.071 0 203.906-69.472 240.077-166.957H15.923C52.094 442.528 145.929 512 256 512z' fill='#0052b4'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 512 512'>
+                           <circle cx='256' cy='256' fill='#f0f0f0' r='256'></circle>
+                           <path d='M244.87 256H512c0-23.107-3.08-45.489-8.819-66.783H244.87V256zm0-133.565h229.556a257.328 257.328 0 0 0-59.069-66.783H244.87v66.783zM256 512c60.249 0 115.626-20.824 159.357-55.652H96.643C140.374 491.176 195.751 512 256 512zM37.574 389.565h436.852a254.492 254.492 0 0 0 28.755-66.783H8.819a254.46 254.46 0 0 0 28.755 66.783z' fill='#d80027'></path>
+                           <path d='M256 256V0C114.616 0 0 114.616 0 256h256z' fill='#0052b4'></path>
+                           <g fill='#ffda44'>
+                              <path d='M170.234 219.13c-34.962 0-63.304-28.343-63.304-63.304s28.343-63.304 63.304-63.304c10.901 0 21.158 2.757 30.113 7.609-14.048-13.737-33.26-22.217-54.461-22.217-43.029 0-77.913 34.883-77.913 77.913s34.884 77.913 77.913 77.913c21.201 0 40.413-8.48 54.461-22.217-8.955 4.85-19.211 7.607-30.113 7.607z'></path>
+                              <path d='M188.073 111.304l11.239 23.502 25.381-5.864-11.366 23.439 20.412 16.187-25.414 5.729.071 26.051-20.323-16.298-20.324 16.298.07-26.051-25.414-5.729 20.412-16.187-11.367-23.439 25.383 5.864z'></path>
+                           </g>
+                        </svg>
+                     </div>
+                  </div>
+                  <p>We are proud of our collaboration with <strong>TOGGL</strong>, <strong>INFOSTRADA</strong>, <strong>DIALTONE</strong> and more than 20 other companies</p>
+                  <p>We offer solutions according to business requirements and cover technical part of each project at all stages</p>
+                  <p>We provide full stack solutions</p>
+               </div>
+            </article>
+            <article class='about-case about-design'>
+               <div class='about-case-content'>
+                  <p>Days spent on design can save months spent on development</p>
+                  <div class='images'>
+                     <div class='image'>
+                        <svg viewbox='0 0 27 24'>
+                           <g fill='none'>
+                              <path d='M13.2 0L5.76.79 0 8.558 13.2 24 26.4 8.558 20.64.79z' fill='#FDB300'></path>
+                              <path d='M0 8.533L13.333 24 5.401 8.533zm21.107 0L13.333 24 26.4 8.533z' fill='#EB6C00'></path>
+                              <path d='M5.333 8.533L13.2 24l7.867-15.467z' fill='#FDAD00'></path>
+                              <path d='M5.74.788l-.407 7.745L13.067 0zm15.327 7.745L20.66.788 13.333 0z' fill='#FDD231'></path>
+                              <path d='M20.954 8.533H26.4L20.533.8zM0 8.533h5.446L5.867.8z' fill='#FDAD00'></path>
+                              <path d='M13.2 0L5.333 8.533h15.734z' fill='#FEEEB7'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 24 24'>
+                           <g fill='none'>
+                              <path d='M2.176 0A2.176 2.176 0 0 0 0 2.176v19.648C0 23.026.974 24 2.176 24h19.648A2.176 2.176 0 0 0 24 21.824V2.176A2.176 2.176 0 0 0 21.824 0H2.176z' fill='#DC395F'></path>
+                              <path d='M8.02 7.551a1.45 1.45 0 0 0 1.467-1.445c0-.819-.668-1.444-1.466-1.444-.798 0-1.466.625-1.466 1.444 0 .82.668 1.445 1.466 1.445m-3.04 7.736c-.086.367-.13.763-.13 1.086 0 1.272.69 2.117 2.157 2.117 1.216 0 2.201-.723 2.911-1.889l-.433 1.74H11.9l1.38-5.535c.345-1.402 1.013-2.129 2.027-2.129.798 0 1.294.496 1.294 1.315 0 .238-.022.496-.108.776l-.712 2.544c-.108.367-.15.734-.15 1.078 0 1.208.71 2.092 2.198 2.092 1.272 0 2.286-.82 2.846-2.781l-.948-.367c-.475 1.315-.884 1.553-1.208 1.553-.323 0-.496-.216-.496-.647 0-.194.044-.41.108-.668l.69-2.48a5.468 5.468 0 0 0 .237-1.571c0-1.855-1.12-2.822-2.48-2.822-1.271 0-2.565 1.147-3.211 2.355l.474-2.168h-3.687l-.518 1.91h1.725L10.3 15.047c-.834 1.854-2.366 1.884-2.558 1.841-.316-.071-.518-.191-.518-.601 0-.237.043-.577.15-.987l1.618-6.415H4.895l-.518 1.91H6.08l-1.1 4.491' fill='#FFF'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 28 24'>
+                           <defs>
+                              <lineargradient id='icon-drive-a' x1='15.093%' x2='84.907%' y1='0%' y2='100%'>
+                                 <stop offset='0%' stop-color='#F6C338'></stop>
+                                 <stop offset='52.278%' stop-color='#FFD351'></stop>
+                                 <stop offset='100%' stop-color='#F6C338'></stop>
+                              </lineargradient>
+                              <lineargradient id='icon-drive-b' x1='56.638%' x2='43.362%' y1='0%' y2='100%'>
+                                 <stop offset='0%' stop-color='#286EE6'></stop>
+                                 <stop offset='52.105%' stop-color='#4286FB'></stop>
+                                 <stop offset='100%' stop-color='#286EE6'></stop>
+                              </lineargradient>
+                              <lineargradient id='icon-drive-c' x1='65.289%' x2='35.995%' y1='33.288%' y2='66.712%'>
+                                 <stop offset='0%' stop-color='#069B5A'></stop>
+                                 <stop offset='53.103%' stop-color='#11AA62'></stop>
+                                 <stop offset='100%' stop-color='#069B5A'></stop>
+                              </lineargradient>
+                           </defs>
+                           <g fill='none'>
+                              <path d='M9.005 0h9.622l9.049 15.6h-9.644z' fill='url(#icon-drive-a)'></path>
+                              <path d='M27.676 15.6l-4.822 8.335H4.8L9.632 15.6z' fill='url(#icon-drive-b)'></path>
+                              <path d='M4.8 23.935L0 15.6 9.005 0l4.833 8.357z' fill='url(#icon-drive-c)'></path>
+                              <path d='M4.8 23.935l8.984-8.335H9.632zM27.676 15.6h-9.633l-2.119-3.654zM9.005 0l2.779 11.892 2.054-3.535z' fill='#000' opacity='.1'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 24 24'>
+                           <defs>
+                              <lineargradient id='icon-trello-a' x1='50%' x2='50%' y1='0%' y2='100%'>
+                                 <stop offset='0%' stop-color='#0091E6'></stop>
+                                 <stop offset='100%' stop-color='#0079BF'></stop>
+                              </lineargradient>
+                           </defs>
+                           <g fill='none'>
+                              <rect fill='url(#icon-trello-a)' height='24' rx='3' width='24'></rect>
+                              <rect fill='#FFF' height='10' rx='1' width='7' x='14' y='3'></rect>
+                              <rect fill='#FFF' height='16' rx='1' width='7' x='3' y='3'></rect>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 24 21'>
+                           <path d='M18.545 18.443c0 1.283-2.973 2.317-6.637 2.317-3.665 0-6.637-1.043-6.637-2.317 0-1.283 2.972-2.317 6.637-2.317 3.664 0 6.637 1.034 6.637 2.317z' fill='#9EDCF2' fill-rule='nonzero'></path>
+                           <path d='M23.63 8.742c-1.947-.388-3.94-.397-5.15-.342.194-.71.258-1.542.258-2.455 0-1.32-.498-2.373-1.292-3.167.139-.452.323-1.458-.184-2.741 0 0-.905-.286-2.964 1.09a10.351 10.351 0 0 0-2.52-.305c-.941 0-1.892.12-2.787.36C6.868-.268 5.935.028 5.935.028c-.609 1.523-.23 2.658-.12 2.935-.72.775-1.153 1.763-1.153 2.972 0 .914.101 1.736.36 2.447-1.219-.047-3.139-.028-5.022.35l.018.083c1.884-.378 3.822-.387 5.031-.341.056.148.12.295.185.434-1.2.037-3.24.194-5.197.747l.028.083C2.04 9.185 4.098 9.037 5.289 9c.72 1.33 2.123 2.197 4.634 2.465-.36.24-.72.646-.868 1.338-.489.23-2.021.803-2.944-.785 0 0-.517-.941-1.505-1.015 0 0-.96-.018-.064.6 0 0 .636.305 1.08 1.44 0 0 .581 1.939 3.36 1.31v1.985s-.056.711-.711.942c0 0-.388.268.027.415 0 0 1.8.148 1.8-1.329v-2.178s-.073-.868.351-1.163v3.581s-.027.859-.47 1.182c0 0-.296.526.35.387 0 0 1.237-.175 1.293-1.624l.027-3.628h.296l.027 3.628c.056 1.44 1.293 1.624 1.293 1.624.646.148.35-.387.35-.387-.443-.323-.47-1.182-.47-1.182v-3.554c.424.333.35 1.136.35 1.136v2.178c0 1.477 1.8 1.33 1.8 1.33.416-.148.028-.416.028-.416-.646-.24-.71-.942-.71-.942v-2.861c0-1.117-.471-1.708-.933-2.012 2.677-.268 3.96-1.127 4.55-2.474 1.173.027 3.287.175 5.3.747l.027-.083c-2.003-.563-4.099-.71-5.29-.747.056-.139.102-.277.148-.425 1.237-.046 3.24-.046 5.197.342l.019-.083z' fill='#666' fill-rule='nonzero'></path>
+                           <path d='M16.117 5.88c.572.526.914 1.154.914 1.828 0 3.175-2.363 3.258-5.28 3.258-2.917 0-5.28-.443-5.28-3.258 0-.674.332-1.302.904-1.819.951-.867 2.557-.406 4.376-.406 1.818 0 3.415-.47 4.366.397z' fill='#F5CCB3' fill-rule='nonzero'></path>
+                           <path d='M9.997 7.874c0 .877-.49 1.578-1.099 1.578S7.8 8.742 7.8 7.874c0-.877.49-1.579 1.098-1.579.61-.009 1.099.702 1.099 1.579z' fill='#FFF' fill-rule='nonzero'></path>
+                           <path d='M9.646 7.892c0 .582-.332 1.053-.73 1.053-.405 0-.728-.471-.728-1.053 0-.581.332-1.052.729-1.052.397 0 .73.47.73 1.052z' fill='#AF5C51' fill-rule='nonzero'></path>
+                           <path d='M15.895 7.874c0 .877-.489 1.578-1.098 1.578-.61 0-1.099-.71-1.099-1.578 0-.877.49-1.579 1.099-1.579.6-.009 1.098.702 1.098 1.579z' fill='#FFF' fill-rule='nonzero'></path>
+                           <path d='M15.535 7.892c0 .582-.332 1.053-.729 1.053-.406 0-.73-.471-.73-1.053 0-.581.333-1.052.73-1.052.406 0 .73.47.73 1.052zm-3.489 1.385c0 .148-.12.277-.277.277a.278.278 0 0 1-.277-.277c0-.157.12-.277.277-.277.148 0 .277.12.277.277zm-.914.692c-.018-.046.01-.092.056-.11.046-.019.092.009.11.055a.496.496 0 0 0 .471.332.51.51 0 0 0 .471-.332c.018-.046.065-.074.11-.056.047.019.075.065.056.111a.677.677 0 0 1-.637.453.677.677 0 0 1-.637-.453z' fill='#AF5C51' fill-rule='nonzero'></path>
+                        </svg>
+                     </div>
+                  </div>
+                  <p>We help creative people to describe and visualize their ideas, rank features and choose development technologies, that will translate their ideas into products</p>
+                  <p>We design digital rockets</p>
+               </div>
+            </article>
+            <article class='about-case about-develop'>
+               <div class='about-case-content'>
+                  <p><strong>Performance</strong>, <strong>Security</strong>, <strong>Flexibility</strong> <br>are Three Pillars of each successful product</p>
+                  <div class='images'>
+                     <div class='image'>
+                        <svg viewbox='0 0 22 24'>
+                           <g fill='none'>
+                              <path d='M10.593.004l10.593 5.992v11.988l-10.593 5.992L0 17.984V5.996z' fill='#FFF'></path>
+                              <path d='M19.295 17.569l-8.35 4.728V18.62l5.204-2.866 3.146 1.815zm.572-.516V7.17l-3.054 1.763v6.356l3.054 1.763zm-18.008.516l8.35 4.724v-3.677l-5.204-2.862-3.146 1.815zm-.572-.516V7.17l3.054 1.763v6.356l-3.054 1.763zm.356-10.521l8.566-4.845v3.558L4.721 8.263l-.044.024-3.034-1.755zm17.864 0l-8.562-4.845v3.558l5.484 3.022.044.024 3.034-1.76z' fill='#8ED6FB'></path>
+                              <path d='M10.21 17.78l-5.133-2.826V9.362l5.132 2.962v5.456zm.735 0l5.133-2.822V9.362l-5.133 2.962v5.456zM5.42 8.714l5.157-2.834 5.153 2.834-5.153 2.974L5.42 8.714z' fill='#1C78C0'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 27 24'>
+                           <path d='M22.156 7.77c-.28-.095-.57-.186-.867-.272.049-.2.094-.398.134-.592.656-3.188.227-5.755-1.24-6.6-1.405-.812-3.704.034-6.026 2.054-.223.195-.447.4-.67.616-.15-.143-.299-.28-.447-.412C10.606.403 8.167-.508 6.702.34c-1.404.813-1.82 3.227-1.229 6.248.057.292.124.59.2.893-.346.098-.68.202-.998.314C1.822 8.789 0 10.348 0 11.965c0 1.67 1.956 3.345 4.928 4.36.234.081.477.157.728.229-.081.327-.152.648-.211.962-.564 2.968-.124 5.325 1.277 6.133 1.447.834 3.875-.023 6.24-2.09.186-.164.373-.337.561-.518.244.234.487.456.729.664 2.29 1.971 4.552 2.767 5.951 1.957 1.446-.837 1.915-3.369 1.306-6.45a15.837 15.837 0 0 0-.162-.72c.17-.05.338-.102.501-.156 3.09-1.024 5.1-2.679 5.1-4.37 0-1.624-1.881-3.193-4.792-4.195zm-.67 7.473a15.19 15.19 0 0 1-.452.142 27.001 27.001 0 0 0-1.365-3.414c.537-1.158.98-2.292 1.311-3.364.276.08.544.164.801.252 2.494.859 4.015 2.128 4.015 3.106 0 1.042-1.643 2.394-4.31 3.278zm-1.107 2.193c.27 1.362.309 2.594.13 3.557-.16.865-.483 1.441-.882 1.672-.85.492-2.666-.147-4.624-1.832-.225-.194-.451-.4-.678-.618.76-.83 1.518-1.796 2.259-2.868a26.87 26.87 0 0 0 3.65-.563c.054.222.103.44.145.652zM9.187 22.58c-.83.294-1.49.302-1.89.072-.85-.49-1.203-2.383-.721-4.922.055-.29.12-.589.196-.894a26.96 26.96 0 0 0 3.632.525 28.024 28.024 0 0 0 2.313 2.858c-.172.166-.343.324-.513.473-1.046.914-2.094 1.562-3.017 1.888zM5.3 15.237c-1.314-.45-2.4-1.033-3.143-1.67-.668-.573-1.006-1.14-1.006-1.602 0-.981 1.463-2.233 3.903-3.083.296-.104.606-.2.927-.292.338 1.097.78 2.243 1.314 3.403a28.046 28.046 0 0 0-1.33 3.452 14.18 14.18 0 0 1-.665-.208zm1.303-8.87c-.507-2.588-.17-4.54.676-5.03.902-.522 2.895.222 4.996 2.088.135.119.27.244.405.373a27.577 27.577 0 0 0-2.296 2.84c-1.267.118-2.48.307-3.596.56a17.51 17.51 0 0 1-.185-.83zm11.624 2.87c-.267-.46-.54-.91-.82-1.347a25 25 0 0 1 2.457.43 24.59 24.59 0 0 1-.862 2.32 40.121 40.121 0 0 0-.775-1.403zm-4.74-4.617a24.608 24.608 0 0 1 1.585 1.915 33.899 33.899 0 0 0-3.185 0 25.266 25.266 0 0 1 1.6-1.915zM8.716 9.245c-.266.462-.52.928-.76 1.394a25.414 25.414 0 0 1-.857-2.332 25.946 25.946 0 0 1 2.443-.42c-.283.442-.559.895-.826 1.358zm.85 6.88a24.503 24.503 0 0 1-2.483-.4 25.68 25.68 0 0 1 .874-2.379 34.02 34.02 0 0 0 1.61 2.778zm3.952 3.266a25.84 25.84 0 0 1-1.621-1.94c.516.02 1.042.03 1.577.03.549 0 1.092-.012 1.626-.036a24.487 24.487 0 0 1-1.582 1.946zm5.495-6.086c.36.82.664 1.615.905 2.37-.782.179-1.625.322-2.514.429a38.547 38.547 0 0 0 1.609-2.799zm-1.779.853c-.421.73-.854 1.427-1.293 2.085-.8.058-1.625.087-2.467.087a37.71 37.71 0 0 1-2.44-.077 32.359 32.359 0 0 1-2.467-4.26A32.35 32.35 0 0 1 11.02 7.74a32.381 32.381 0 0 1 4.912 0 37.551 37.551 0 0 1 2.46 4.235c-.35.722-.737 1.452-1.158 2.182zM19.61 1.302c.902.52 1.253 2.62.686 5.372-.036.175-.077.354-.12.535a27.576 27.576 0 0 0-3.604-.569 27.042 27.042 0 0 0-2.278-2.843c.207-.199.414-.389.62-.568 1.99-1.732 3.849-2.415 4.696-1.927zM13.474 9.56a2.406 2.406 0 1 1 0 4.812 2.406 2.406 0 0 1 0-4.812z' fill='#00D8FF'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 26 24'>
+                           <path d='M17.447 16.695a1.795 1.795 0 0 0 1.602-1.859 1.8 1.8 0 0 0-1.794-1.73h-.064a1.793 1.793 0 0 0-1.73 1.859c.032.48.224.897.512 1.185-1.09 2.147-2.755 3.717-5.255 5.031-1.698.897-3.46 1.218-5.223.994-1.442-.193-2.563-.834-3.268-1.891-1.026-1.57-1.122-3.269-.256-4.967.608-1.218 1.57-2.115 2.178-2.563a17.288 17.288 0 0 1-.416-1.635C-.913 14.484-.433 19.034.977 21.181c1.058 1.602 3.204 2.596 5.576 2.596.64 0 1.281-.064 1.922-.225 4.102-.8 7.21-3.236 8.972-6.857zm5.64-3.973C20.652 9.87 17.063 8.299 12.96 8.299h-.512a1.76 1.76 0 0 0-1.57-.96h-.065a1.793 1.793 0 0 0-1.73 1.858 1.8 1.8 0 0 0 1.794 1.73h.065a1.805 1.805 0 0 0 1.57-1.09h.576c2.436 0 4.743.706 6.826 2.083 1.602 1.058 2.755 2.436 3.396 4.102.545 1.346.513 2.66-.064 3.781-.897 1.699-2.403 2.628-4.39 2.628-1.282 0-2.5-.385-3.14-.673-.352.32-.993.833-1.442 1.154 1.378.64 2.788.993 4.134.993 3.076 0 5.35-1.698 6.216-3.397.93-1.858.865-5.063-1.538-7.786zM6.809 17.24a1.8 1.8 0 0 0 1.794 1.73h.065a1.793 1.793 0 0 0 1.73-1.858 1.8 1.8 0 0 0-1.795-1.73H8.54c-.064 0-.16 0-.224.031-1.314-2.179-1.858-4.55-1.666-7.114.128-1.922.769-3.589 1.89-4.966.93-1.186 2.724-1.763 3.942-1.795 3.396-.064 4.838 4.166 4.934 5.864.417.096 1.122.32 1.602.48C18.633 2.693 15.43 0 12.352 0 9.47 0 6.81 2.083 5.752 5.16c-1.474 4.1-.513 8.042 1.281 11.15-.16.225-.256.577-.224.93z' fill='#764ABC'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 22 24'>
+                           <path d='M10.63 23.955a1.93 1.93 0 0 1-.925-.242l-2.927-1.738c-.44-.242-.22-.33-.088-.374.595-.198.705-.242 1.32-.595.067-.044.155-.022.22.022l2.246 1.343c.088.044.198.044.264 0l8.78-5.084c.089-.044.133-.132.133-.242V6.899c0-.11-.044-.198-.132-.242L10.74 1.596c-.088-.044-.198-.044-.264 0L1.695 6.657c-.088.044-.132.154-.132.242v10.146c0 .088.044.198.132.242l2.398 1.387c1.299.66 2.113-.11 2.113-.88V7.78c0-.132.11-.264.264-.264h1.123c.132 0 .264.11.264.264v10.013c0 1.739-.947 2.751-2.597 2.751-.506 0-.902 0-2.025-.55l-2.31-1.32A1.857 1.857 0 0 1 0 17.067V6.921c0-.66.352-1.276.924-1.606L9.705.23a1.964 1.964 0 0 1 1.85 0l8.78 5.084c.572.33.925.946.925 1.606v10.146a1.86 1.86 0 0 1-.925 1.607l-8.78 5.083a2.252 2.252 0 0 1-.925.198zm2.707-6.976c-3.852 0-4.644-1.76-4.644-3.257 0-.132.11-.264.264-.264h1.145c.132 0 .242.088.242.22.176 1.166.682 1.738 3.015 1.738 1.848 0 2.64-.418 2.64-1.408 0-.572-.22-.99-3.102-1.276-2.4-.243-3.896-.77-3.896-2.685 0-1.783 1.497-2.84 4.006-2.84 2.817 0 4.203.969 4.38 3.082a.355.355 0 0 1-.067.198c-.044.044-.11.088-.176.088H16a.258.258 0 0 1-.242-.198c-.265-1.21-.947-1.607-2.751-1.607-2.025 0-2.267.704-2.267 1.233 0 .638.286.836 3.015 1.188 2.707.352 3.983.858 3.983 2.75-.022 1.938-1.606 3.038-4.401 3.038z' fill='#539E43'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 24 24'>
+                           <g fill='none'>
+                              <path d='M23.183 14.371c-.14-.422-.506-.717-.978-.787a2.239 2.239 0 0 0-.78.043 7.02 7.02 0 0 1-1.203.158c1.076-1.817 1.951-3.889 2.455-5.839.814-3.153.38-4.59-.13-5.24C21.203.986 19.238.062 16.869.034a10.066 10.066 0 0 0-2.952.413A11.003 11.003 0 0 0 12.19.29c-1.14-.018-2.147.23-3.007.741A13.728 13.728 0 0 0 7.059.497c-2.077-.34-3.75-.075-4.975.79C.602 2.334-.086 4.153.042 6.694c.04.807.492 3.261 1.202 5.59.408 1.337.844 2.448 1.294 3.302.64 1.21 1.323 1.923 2.09 2.179.43.143 1.212.244 2.034-.44.104.125.243.25.427.367.234.148.52.269.807.34 1.031.258 1.997.193 2.82-.168.006.147.01.287.013.408.005.196.01.388.018.568.049 1.216.132 2.161.377 2.822l.05.151c.123.374.327 1.001.847 1.492.539.508 1.19.664 1.787.664.3 0 .585-.039.835-.093.893-.19 1.907-.482 2.64-1.527.694-.987 1.031-2.474 1.092-4.817l.022-.19.015-.124.163.015.042.003c.91.041 2.021-.152 2.704-.469.54-.25 2.269-1.163 1.862-2.396' fill='#000'></path>
+                              <path d='M21.628 14.611c-2.704.558-2.89-.358-2.89-.358 2.855-4.235 4.048-9.612 3.018-10.928-2.809-3.59-7.672-1.892-7.753-1.848l-.026.005a9.642 9.642 0 0 0-1.804-.188c-1.224-.02-2.152.32-2.856.855 0 0-8.675-3.574-8.272 4.495.086 1.716 2.46 12.988 5.293 9.584 1.035-1.245 2.035-2.298 2.035-2.298a2.63 2.63 0 0 0 1.715.438l.049-.041a1.89 1.89 0 0 0 .02.484c-.73.816-.516.959-1.975 1.259-1.476.304-.609.846-.042.987.686.172 2.273.415 3.346-1.087l-.043.172c.286.229.487 1.489.453 2.632-.033 1.142-.056 1.927.17 2.54.225.612.45 1.99 2.367 1.58 1.602-.344 2.432-1.233 2.548-2.717.082-1.056.267-.9.279-1.843l.149-.446c.171-1.43.027-1.892 1.014-1.678l.24.022c.726.033 1.677-.117 2.235-.377 1.202-.557 1.915-1.489.73-1.244' fill='#336791'></path>
+                              <path d='M9.825 7.411c-.243-.034-.464-.002-.576.082a.21.21 0 0 0-.087.14c-.014.101.056.212.1.27a.753.753 0 0 0 .477.298.557.557 0 0 0 .077.005c.295 0 .563-.23.587-.4.03-.211-.279-.353-.578-.395m8.071.007c-.023-.166-.32-.214-.6-.175-.28.04-.553.166-.53.333.018.13.252.351.53.351a.51.51 0 0 0 .07-.005.682.682 0 0 0 .386-.21c.098-.104.155-.22.144-.294' fill='#FFF'></path>
+                              <path d='M22.527 14.548c-.103-.312-.434-.412-.986-.298-1.637.337-2.223.103-2.415-.038 1.272-1.939 2.319-4.281 2.883-6.467.268-1.036.416-1.997.428-2.781.013-.86-.134-1.493-.436-1.879C20.783 1.528 18.995.693 16.831.67c-1.489-.016-2.746.364-2.99.471A7.451 7.451 0 0 0 12.16.925c-1.117-.018-2.083.25-2.882.795a12.871 12.871 0 0 0-2.342-.614C5.037.8 3.529 1.032 2.453 1.794 1.17 2.704.577 4.33.692 6.627c.038.773.479 3.15 1.173 5.427.915 2.997 1.91 4.693 2.956 5.042.122.04.263.07.42.07.38 0 .849-.173 1.335-.758a48.167 48.167 0 0 1 1.842-2.084c.412.22.863.344 1.326.356l.003.037c-.093.11-.17.206-.234.288-.32.407-.387.491-1.417.703-.294.061-1.072.221-1.084.767-.012.597.92.847 1.027.874.37.092.727.138 1.068.138.827 0 1.555-.272 2.137-.798-.018 2.126.071 4.22.326 4.859.21.523.72 1.8 2.333 1.8.237 0 .498-.028.784-.09 1.684-.36 2.415-1.105 2.698-2.745.151-.877.411-2.97.533-4.094.258.08.59.117.949.117.748 0 1.612-.159 2.153-.41.609-.283 1.707-.976 1.507-1.578zm-4.01-7.59a6.817 6.817 0 0 1-.099.947c-.052.338-.106.688-.12 1.112-.013.412.039.842.089 1.257.1.838.204 1.7-.196 2.552a3.319 3.319 0 0 1-.177-.364 7.142 7.142 0 0 0-.308-.583c-.581-1.043-1.944-3.486-1.246-4.483.207-.297.735-.602 2.058-.437zm-1.603-5.616c1.94.042 3.473.768 4.56 2.156.833 1.065-.085 5.909-2.74 10.088a15.572 15.572 0 0 0-.08-.101l-.035-.042c.687-1.134.553-2.255.433-3.25-.049-.407-.095-.793-.084-1.155.013-.383.063-.712.112-1.03.06-.393.122-.798.105-1.277a.53.53 0 0 0 .011-.18c-.043-.458-.567-1.83-1.634-3.073a7.36 7.36 0 0 0-2.597-1.953c.5-.104 1.183-.2 1.949-.183zM6.06 15.98c-.536.645-.906.521-1.028.48-.794-.264-1.715-1.942-2.527-4.602-.702-2.301-1.113-4.616-1.145-5.265-.103-2.052.395-3.483 1.479-4.251 1.764-1.251 4.664-.503 5.83-.123l-.052.049C6.706 4.199 6.751 7.498 6.756 7.7c0 .077.006.188.015.34.033.554.095 1.587-.069 2.757-.152 1.087.183 2.15.92 2.919.075.08.155.154.237.224a49.09 49.09 0 0 0-1.798 2.039zm2.044-2.727c-.593-.619-.863-1.48-.74-2.362.173-1.236.11-2.312.075-2.89l-.011-.208c.279-.248 1.574-.942 2.497-.73.421.096.678.383.785.877.552 2.555.073 3.62-.312 4.475-.08.176-.155.343-.219.515l-.05.134c-.125.337-.242.65-.314.947a2.384 2.384 0 0 1-1.711-.758zm.097 3.446a1.482 1.482 0 0 1-.447-.193 2.18 2.18 0 0 1 .476-.141c1.212-.25 1.4-.426 1.808-.945.094-.12.2-.254.348-.419.219-.245.32-.204.501-.128.147.06.291.245.35.449.027.096.058.278-.044.42-.854 1.196-2.098 1.18-2.992.957zm6.345 5.904c-1.483.318-2.008-.439-2.355-1.304-.223-.558-.333-3.077-.255-5.859a.333.333 0 0 0-.014-.106 1.404 1.404 0 0 0-.042-.197c-.116-.404-.398-.743-.736-.883-.135-.056-.382-.158-.679-.082.064-.261.173-.555.292-.874l.05-.134c.056-.152.127-.308.202-.474.403-.895.954-2.122.355-4.892-.224-1.037-.973-1.544-2.109-1.426-.681.07-1.304.345-1.615.502a5.197 5.197 0 0 0-.185.099c.087-1.046.415-3 1.64-4.236.772-.778 1.8-1.162 3.052-1.142 2.467.04 4.05 1.307 4.942 2.362.77.91 1.186 1.825 1.353 2.32-1.25-.128-2.101.119-2.532.735-.938 1.34.513 3.943 1.21 5.194.128.229.238.427.273.511.227.55.521.918.736 1.186.066.082.13.162.178.232-.379.109-1.059.361-.997 1.622-.05.633-.405 3.595-.586 4.642-.239 1.383-.747 1.898-2.178 2.204zm6.191-7.085c-.387.18-1.035.315-1.65.344-.68.032-1.027-.076-1.108-.143-.039-.786.254-.868.563-.955.05-.013.097-.027.142-.043.029.024.06.047.094.07.547.36 1.522.399 2.898.115l.015-.003a3.702 3.702 0 0 1-.954.615z' fill='#FFF'></path>
+                           </g>
+                        </svg>
+                     </div>
+                  </div>
+                  <p>We use external and in-house solutions for development & integration of high-quality code</p>
+                  <p>Imagine the box, which receives requirements & returns tested and documented solutions. It is us</p>
+                  <p>We develop digital rockets</p>
+               </div>
+            </article>
+            <article class='about-case about-care'>
+               <div class='about-case-content'>
+                  <p>“Tit deviens responsable pour tpujows.de ce que tit as apprivoise”</p>
+                  <div class='images'>
+                     <div class='image'>
+                        <svg viewbox='0 0 30 23'>
+                           <path d='M8.079 23.03l-3.633-1.303v-5.325l3.633 1.238v5.39m.666 0l3.633-1.303v-5.325L8.745 17.64v5.39m-3.926-7.027l3.677-1.035 3.41 1.1-3.41 1.157-3.677-1.222m-1.065-.412L.121 14.288V8.962L3.754 10.2v5.391m.666 0l3.633-1.303V8.962L4.42 10.2v5.391M.494 8.564l3.677-1.035 3.41 1.099-3.41 1.158L.494 8.564m11.737 7.027l-3.633-1.303V8.962l3.633 1.238v5.391m.666 0l3.634-1.303V8.962L12.897 10.2v5.391M8.972 8.564l3.676-1.035 3.41 1.099-3.41 1.158-3.676-1.222m7.584-.413l-3.633-1.303V1.523l3.633 1.238v5.39m.667 0l3.633-1.303V1.523l-3.633 1.238v5.39m-3.926-7.026L16.974.09l3.409 1.099-3.409 1.157-3.677-1.221m11.737 7.026l-3.633-1.303V1.523l3.633 1.238v5.39m.666 0l3.633-1.303V1.523L25.7 2.761v5.39m-3.926-7.026L25.451.09l3.409 1.099-3.409 1.157-3.677-1.221' fill='#F90'></path>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 29 24'>
+                           <g fill='none'>
+                              <path d='M4.31 19.421v-1.826c0-.24.15-.433.4-.433h.068c.248 0 .398.193.398.433v3.845c0 .938-.464 1.684-1.27 2.16-.375.22-.789.333-1.223.333h-.171c-.938 0-1.683-.464-2.16-1.27A2.38 2.38 0 0 1 .02 21.44v-.171c0-.938.463-1.684 1.27-2.16a2.377 2.377 0 0 1 1.222-.333h.171c.635 0 1.174.246 1.628.645zM.886 21.354c0 .678.328 1.187.921 1.512.24.131.5.202.775.202.665 0 1.158-.314 1.498-.877a1.63 1.63 0 0 0 .232-.854c0-.587-.278-1.045-.751-1.386a1.614 1.614 0 0 0-.962-.31c-.725 0-1.247.366-1.56 1.017-.105.22-.153.453-.153.696zm7.292-2.578h.12c1.002 0 1.764.486 2.247 1.36.193.35.296.733.296 1.133v.171c0 .938-.462 1.685-1.27 2.16a2.4 2.4 0 0 1-1.222.333h-.171c-.938 0-1.684-.464-2.16-1.27a2.38 2.38 0 0 1-.333-1.223v-.171c0-.938.465-1.681 1.27-2.16a2.366 2.366 0 0 1 1.223-.333zM6.55 21.354c0 .658.323 1.142.878 1.482.26.16.548.232.853.232.65 0 1.13-.33 1.464-.878.16-.262.231-.549.231-.853 0-.611-.294-1.079-.798-1.417a1.61 1.61 0 0 0-.915-.279c-.725 0-1.246.366-1.559 1.017-.106.22-.154.453-.154.696zm7.887-1.644c-.13-.06-.375-.081-.516-.086-.723-.028-1.246.38-1.552 1.017-.106.22-.155.453-.155.696 0 .74.39 1.26 1.05 1.576.242.115.554.137.818.137.232 0 .56-.142.767-.24l.035-.017h.16l.018.004c.197.04.345.165.345.377v.085c0 .527-.962.648-1.33.673-1.296.09-2.265-.622-2.634-1.858a2.238 2.238 0 0 1-.093-.651v-.172c0-.938.465-1.68 1.27-2.159a2.368 2.368 0 0 1 1.222-.333h.171c.461 0 .886.13 1.267.39l.031.022.02.033a.456.456 0 0 1 .076.228v.085c0 .221-.165.34-.364.378l-.017.003h-.051c-.13 0-.423-.133-.538-.188zm2.806.586c.336-.336.673-.672 1.014-1.003.095-.092.455-.483.596-.483h.155l.018.004c.197.04.345.166.345.378v.085c0 .145-.17.313-.263.412-.198.21-.408.414-.611.62l-1.045 1.062c.45.45.9.902 1.346 1.356.123.126.247.252.368.38.043.045.107.1.143.164a.354.354 0 0 1 .062.195v.09l-.005.02c-.048.197-.174.357-.392.357h-.07c-.142 0-.304-.162-.402-.255-.202-.19-.397-.39-.595-.585l-.664-.652v1.042c0 .24-.15.433-.399.433h-.068c-.248 0-.398-.193-.398-.433v-5.871c0-.24.15-.432.398-.432h.068c.249 0 .399.192.399.432v2.684zm10.78-1.486h.086c.26 0 .433.175.433.433 0 .358-.342.45-.639.45-.388 0-.759.235-1.027.499-.334.329-.48.75-.48 1.214V23.5c0 .24-.15.433-.398.433h-.069c-.248 0-.398-.193-.398-.433v-2.214c0-.85.414-1.545 1.104-2.031a2.378 2.378 0 0 1 1.389-.445zm-6.147 4.15c.314.11.673.094.996.038.165-.07.588-.254.743-.228l.025.005.022.01a.488.488 0 0 1 .234.208c.113.226.059.454-.164.582l-.074.043c-.82.474-1.693.408-2.51-.034a2.328 2.328 0 0 1-.912-.908l-.051-.09c-.527-.912-.456-1.871.138-2.739.205-.3.473-.531.787-.712l.118-.069c.773-.446 1.6-.415 2.395-.024.426.21.772.525 1.01.937l.043.075c.173.3-.051.56-.283.74-.268.206-.54.456-.797.678-.574.495-1.147.992-1.72 1.488zm-.743-.522a599.61 599.61 0 0 0 1.924-1.654c.219-.188.459-.384.676-.583-.175-.219-.465-.377-.713-.471-.498-.19-.99-.127-1.448.137-.599.346-.854.897-.832 1.582.01.27.082.53.225.76.05.08.107.157.168.23zM16.464 5.105h2.552v2.61h1.29c.597 0 1.21-.107 1.774-.298.278-.094.589-.225.862-.39-.36-.47-.544-1.064-.598-1.65-.074-.796.087-1.833.626-2.456l.268-.31.32.257c.805.647 1.482 1.55 1.601 2.58.97-.285 2.108-.217 2.962.276l.35.202-.184.36c-.722 1.41-2.233 1.847-3.71 1.77-2.21 5.504-7.021 8.11-12.855 8.11-3.013 0-5.779-1.127-7.353-3.8l-.026-.044-.23-.467c-.532-1.177-.708-2.466-.588-3.755l.036-.386h2.182V5.105h2.553V2.552H13.4V0h3.063v5.105' fill='#364548'></path>
+                              <path d='M24.733 6.07c.172-1.33-.824-2.375-1.441-2.87-.712.822-.822 2.977.294 3.885-.623.553-1.935 1.055-3.28 1.055H3.949c-.13 1.402.116 2.694.678 3.8l.186.34c.118.2.247.393.386.58.673.042 1.293.057 1.86.045 1.115-.025 2.025-.157 2.714-.395a.196.196 0 1 1 .129.37 5.466 5.466 0 0 1-.286.09 8.539 8.539 0 0 1-1.876.306c.044.001-.047.007-.047.007l-.083.007c-.296.016-.615.02-.941.02-.357 0-.708-.007-1.101-.027l-.01.007c1.363 1.532 3.494 2.45 6.165 2.45 5.654 0 10.45-2.506 12.573-8.132 1.507.154 2.955-.23 3.613-1.516-1.049-.605-2.398-.412-3.175-.022' fill='#22A0C8'></path>
+                              <path d='M24.733 6.07c.172-1.33-.824-2.375-1.441-2.87-.712.822-.822 2.977.294 3.885-.623.553-1.935 1.055-3.28 1.055H4.918c-.067 2.148.73 3.779 2.141 4.765 1.115-.025 2.025-.157 2.714-.395a.196.196 0 1 1 .129.37 5.466 5.466 0 0 1-.286.09 8.978 8.978 0 0 1-1.926.32l-.019-.018c1.924.987 4.714.984 7.913-.245 3.587-1.378 6.924-4.003 9.253-7.005-.035.015-.07.032-.103.048' fill='#37B1D9'></path>
+                              <path d='M3.979 9.844c.102.751.321 1.455.647 2.096l.186.34c.118.2.247.393.386.58.673.042 1.293.057 1.86.045 1.115-.025 2.025-.157 2.714-.395a.196.196 0 1 1 .129.37 5.466 5.466 0 0 1-.286.09 8.977 8.977 0 0 1-1.923.313c-.026.002-.07.002-.097.003a16.37 16.37 0 0 1-.937.027c-.357 0-.722-.007-1.114-.027 1.363 1.532 3.507 2.454 6.178 2.454 4.84 0 9.052-1.837 11.496-5.896H3.978' fill='#1B81A5'></path>
+                              <path d='M5.064 9.844c.29 1.32.985 2.355 1.994 3.06 1.115-.024 2.025-.156 2.714-.394a.196.196 0 1 1 .129.37 5.466 5.466 0 0 1-.286.09 9.113 9.113 0 0 1-1.936.313c1.924.987 4.705.973 7.904-.256 1.935-.743 3.797-1.85 5.468-3.183H5.064' fill='#1D91B4'></path>
+                              <path d='M6.169 5.53H8.38v2.213H6.169V5.53zm.184.185h.174v1.843h-.174V5.715zm.328 0h.182v1.843H6.68V5.715zm.335 0h.182v1.843h-.182V5.715zm.335 0h.182v1.843h-.182V5.715zm.336 0h.181v1.843h-.181V5.715zm.335 0h.175v1.843h-.175V5.715zm.699-2.737h2.212V5.19H8.721V2.978zm.184.184h.175v1.844h-.175V3.162zm.329 0h.181v1.844h-.181V3.162zm.335 0h.181v1.844h-.18V3.162zm.335 0h.181v1.844h-.181V3.162zm.335 0h.182v1.844h-.182V3.162zm.335 0h.175v1.844h-.175V3.162z' fill='#23A3C2'></path>
+                              <path d='M8.721 5.53h2.212v2.213H8.721V5.53zm.184.185h.175v1.843h-.175V5.715zm.329 0h.181v1.843h-.181V5.715zm.335 0h.181v1.843h-.18V5.715zm.335 0h.181v1.843h-.181V5.715zm.335 0h.182v1.843h-.182V5.715zm.335 0h.175v1.843h-.175V5.715z' fill='#34BBDE'></path>
+                              <path d='M11.274 5.53h2.212v2.213h-2.212V5.53zm.184.185h.174v1.843h-.174V5.715zm.328 0h.182v1.843h-.182V5.715zm.335 0h.182v1.843h-.182V5.715zm.336 0h.181v1.843h-.181V5.715zm.335 0h.181v1.843h-.181V5.715zm.335 0h.174v1.843h-.174V5.715z' fill='#23A3C2'></path>
+                              <path d='M11.274 2.978h2.212V5.19h-2.212V2.978zm.184.184h.174v1.844h-.174V3.162zm.328 0h.182v1.844h-.182V3.162zm.335 0h.182v1.844h-.182V3.162zm.336 0h.181v1.844h-.181V3.162zm.335 0h.181v1.844h-.181V3.162zm.335 0h.174v1.844h-.174V3.162zm.7 2.368h2.211v2.213h-2.212V5.53zm.183.185h.175v1.843h-.175V5.715zm.329 0h.181v1.843h-.181V5.715zm.335 0h.181v1.843h-.181V5.715zm.335 0h.182v1.843h-.182V5.715zm.335 0h.182v1.843h-.182V5.715zm.335 0h.175v1.843h-.175V5.715z' fill='#34BBDE'></path>
+                              <path d='M13.826 2.978h2.212V5.19h-2.212V2.978zm.184.184h.175v1.844h-.175V3.162zm.329 0h.181v1.844h-.181V3.162zm.335 0h.181v1.844h-.181V3.162zm.335 0h.182v1.844h-.182V3.162zm.335 0h.182v1.844h-.182V3.162zm.335 0h.175v1.844h-.175V3.162z' fill='#23A3C2'></path>
+                              <path d='M13.826.425h2.212v2.213h-2.212V.425zm.184.185h.175v1.843h-.175V.61zm.329 0h.181v1.843h-.181V.61zm.335 0h.181v1.843h-.181V.61zm.335 0h.182v1.843h-.182V.61zm.335 0h.182v1.843h-.182V.61zm.335 0h.175v1.843h-.175V.61z' fill='#34BBDE'></path>
+                              <path d='M16.379 5.53h2.212v2.213h-2.212V5.53zm.184.185h.175v1.843h-.175V5.715zm.328 0h.182v1.843h-.182V5.715zm.335 0h.182v1.843h-.182V5.715zm.335 0h.182v1.843h-.182V5.715zm.336 0h.181v1.843h-.181V5.715zm.335 0h.174v1.843h-.174V5.715z' fill='#23A3C2'></path>
+                              <path d='M10.795 11.33a.61.61 0 1 1 0 1.22.61.61 0 0 1 0-1.22' fill='#D3ECEC'></path>
+                              <path d='M10.795 11.502c.056 0 .109.011.158.03a.178.178 0 1 0 .246.24.437.437 0 1 1-.404-.27M0 10.065h28.39c-.618-.157-1.956-.369-1.735-1.18-1.124 1.302-3.835.913-4.519.272-.762 1.105-5.197.685-5.506-.176-.955 1.121-3.915 1.121-4.87 0-.31.86-4.744 1.28-5.506.176-.684.641-3.395 1.03-4.519-.271.221.81-1.117 1.022-1.735 1.179' fill='#364548'></path>
+                              <path d='M12.417 15.727c-1.511-.717-2.34-1.692-2.802-2.756-.562.16-1.237.262-2.02.306a16.31 16.31 0 0 1-.933.025c-.376 0-.772-.01-1.188-.033 1.386 1.385 3.091 2.452 6.248 2.471.234 0 .465-.004.695-.013' fill='#BDD9D7'></path>
+                              <path d='M10.176 13.953a5.294 5.294 0 0 1-.561-.982c-.562.16-1.237.262-2.02.306.538.293 1.308.564 2.581.676' fill='#D3ECEC'></path>
+                           </g>
+                        </svg>
+                     </div>
+                     <div class='image'>
+                        <svg viewbox='0 0 30 24'>
+                           <g fill='none'>
+                              <path d='M14.345 19.931a8.12 8.12 0 0 1-8.12-8.12 8.119 8.119 0 0 1 8.12-8.12 8.12 8.12 0 0 1 0 16.24zM29.437 8.817C28.05 2.447 20.414-1.3 12.377.449 4.34 2.196-1.053 8.776.332 15.145c1.385 6.369 9.023 10.115 17.06 8.368 8.037-1.748 13.43-8.328 12.045-14.696z' fill='#37808C'></path>
+                              <path d='M14.307 19.777a7.983 7.983 0 0 1-7.982-7.983 7.982 7.982 0 0 1 7.982-7.982 7.983 7.983 0 0 1 0 15.965zM16.33 1.738c-5.735 0-10.385 4.65-10.385 10.385 0 5.735 4.65 10.384 10.385 10.384 5.734 0 10.385-4.65 10.385-10.384 0-5.735-4.65-10.385-10.385-10.385z' fill='#9BD3CD'></path>
+                              <path d='M11.425 10.955l-.871-1.826c-.208-.433-.421-.921-.494-1.152l-.017.017c.028.326.033.736.04 1.079l.022 1.882H9.47V7.067h.73l.944 1.9c.18.359.348.82.399 1l.017-.018a16.315 16.315 0 0 1-.056-1.106l-.012-1.776h.613v3.888h-.68m2.382-2.444c-.348 0-.54.275-.54.736h1.051c0-.46-.202-.736-.51-.736zm-.545 1.191v.045c0 .393.146.81.702.81.265 0 .495-.096.708-.282l.242.377c-.298.253-.64.376-1.023.376-.803 0-1.309-.579-1.309-1.489 0-.5.107-.831.354-1.112.23-.264.512-.382.871-.382.281 0 .54.073.781.292.247.225.371.573.371 1.236v.13h-1.697zm4.984 1.264h-.58l-.347-1.309c-.09-.337-.186-.775-.186-.775h-.011s-.045.28-.185.803l-.343 1.281h-.579l-.775-2.815.612-.084.31 1.377c.078.354.145.747.145.747h.017s.056-.37.163-.764l.365-1.315h.607l.32 1.281c.118.46.18.81.18.81h.017s.067-.433.14-.765l.293-1.326h.64l-.803 2.854m-8.208 1.628h-.354v1.23h.331c.338 0 .517-.044.635-.162a.655.655 0 0 0 .174-.472c0-.394-.213-.596-.786-.596zm.899 3.366l-.337-.601c-.27-.478-.45-.748-.663-.961-.073-.073-.13-.113-.253-.118v1.68h-.635v-3.888h1.186c.87 0 1.264.505 1.264 1.112 0 .556-.36 1.068-.967 1.068.14.073.4.45.602.775l.573.933h-.77zm2.163-2.444c-.348 0-.54.275-.54.736h1.051c0-.461-.202-.736-.511-.736zm-.545 1.19v.046c0 .393.146.809.702.809.264 0 .495-.096.708-.281l.242.376c-.298.253-.64.377-1.023.377-.803 0-1.309-.579-1.309-1.49 0-.5.107-.83.354-1.112.23-.264.511-.382.87-.382.282 0 .54.073.782.292.247.225.37.574.37 1.237v.129h-1.696zm2.854 1.316c-.624 0-.624-.562-.624-.804v-2.422c0-.387-.017-.595-.056-.831l.635-.14c.045.174.05.41.05.78v2.41c0 .383.017.445.062.512.034.05.13.079.203.045l.1.382a.968.968 0 0 1-.37.068m.764-.062v-2.798l.624-.113v2.91h-.624zm.31-3.265a.403.403 0 0 1-.4-.41c0-.23.18-.416.41-.416a.414.414 0 0 1-.011.826zm2.084 3.338c-.776 0-1.208-.545-1.208-1.461 0-1.034.618-1.528 1.252-1.528.31 0 .534.073.787.309l-.309.41c-.169-.152-.315-.22-.478-.22a.483.483 0 0 0-.449.287c-.084.174-.118.439-.118.792 0 .388.062.635.191.776a.5.5 0 0 0 .376.163c.197 0 .388-.096.574-.281l.292.376a1.184 1.184 0 0 1-.91.377m1.47-.583a.188.188 0 0 0-.053-.007h-.034v.127h.031c.04 0 .059-.005.071-.016a.066.066 0 0 0 .018-.047c0-.03-.011-.048-.034-.057zm.049.386c-.018-.032-.026-.044-.044-.078-.046-.084-.06-.107-.077-.114a.031.031 0 0 0-.015-.003v.195h-.092v-.468h.174c.083 0 .138.055.138.137 0 .07-.047.128-.104.129a.107.107 0 0 1 .019.02c.027.034.112.182.112.182h-.111zm-.082-.566a.326.326 0 0 0-.32.335c0 .186.143.336.32.336.177 0 .32-.15.32-.336a.327.327 0 0 0-.32-.335zm0 .752a.415.415 0 0 1-.415-.417.416.416 0 1 1 .83 0 .415.415 0 0 1-.415.417z' fill='#666'></path>
+                           </g>
+                        </svg>
+                     </div>
+                  </div>
+                  <p><strong>Production ready</strong>. We achieve it via flexible infrastructure, continuous monitoring, ability to determine and optimize bottlenecks</p>
+                  <p>We are the satellite for the next big things, which will accompany them in all phases: <strong>idea</strong>, <strong>specification</strong>, <strong>prototype</strong>, <strong>MVP</strong>, <strong>product</strong> </p>
+                  <p>We launch digital rockets</p>
+               </div>
+            </article>
+            <article class='about-case about-outro'>
+               <div class='about-case-content'>
+                  <p>We hardly sleep at all</p>
+               </div>
+            </article>
+            <nav class='about-menu'>
+               <ul class='about-menu-content'>
+                  <li class='about-menu-item'>
+                     <label class='about-menu-item-content' for='about-us'>
+                        <svg class='about-menu-item-icon' viewbox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M40 26H15.414l8.293-8.293-1.414-1.414L11.586 27l10.707 10.707 1.414-1.414L15.414 28H40a1 1 0 1 0 0-2z'></path>
+                        </svg>
+                        <svg class='about-menu-item-icon' viewBox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M29.293 17.707L37.586 26H13a1 1 0 1 0 0 2h24.586l-8.293 8.293 1.414 1.414L41.414 27 30.707 16.293l-1.414 1.414z'></path>
+                        </svg>
+                     </label>
+                  </li>
+                  <li class='about-menu-item'>
+                     <label class='about-menu-item-content' for='about-design'>
+                        <svg class='about-menu-item-icon' viewbox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M40 26H15.414l8.293-8.293-1.414-1.414L11.586 27l10.707 10.707 1.414-1.414L15.414 28H40a1 1 0 1 0 0-2z'></path>
+                        </svg>
+                        <svg class='about-menu-item-icon' viewBox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M29.293 17.707L37.586 26H13a1 1 0 1 0 0 2h24.586l-8.293 8.293 1.414 1.414L41.414 27 30.707 16.293l-1.414 1.414z'></path>
+                        </svg>
+                     </label>
+                  </li>
+                  <li class='about-menu-item'>
+                     <label class='about-menu-item-content' for='about-develop'>
+                        <svg class='about-menu-item-icon' viewbox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M40 26H15.414l8.293-8.293-1.414-1.414L11.586 27l10.707 10.707 1.414-1.414L15.414 28H40a1 1 0 1 0 0-2z'></path>
+                        </svg>
+                        <svg class='about-menu-item-icon' viewBox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M29.293 17.707L37.586 26H13a1 1 0 1 0 0 2h24.586l-8.293 8.293 1.414 1.414L41.414 27 30.707 16.293l-1.414 1.414z'></path>
+                        </svg>
+                     </label>
+                  </li>
+                  <li class='about-menu-item'>
+                     <label class='about-menu-item-content' for='about-care'>
+                        <svg class='about-menu-item-icon' viewbox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M40 26H15.414l8.293-8.293-1.414-1.414L11.586 27l10.707 10.707 1.414-1.414L15.414 28H40a1 1 0 1 0 0-2z'></path>
+                        </svg>
+                        <svg class='about-menu-item-icon' viewBox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M29.293 17.707L37.586 26H13a1 1 0 1 0 0 2h24.586l-8.293 8.293 1.414 1.414L41.414 27 30.707 16.293l-1.414 1.414z'></path>
+                        </svg>
+                     </label>
+                  </li>
+                  <li class='about-menu-item'>
+                     <label class='about-menu-item-content' for='about-outro'>
+                        <svg class='about-menu-item-icon' viewbox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M40 26H15.414l8.293-8.293-1.414-1.414L11.586 27l10.707 10.707 1.414-1.414L15.414 28H40a1 1 0 1 0 0-2z'></path>
+                        </svg>
+                        <svg class='about-menu-item-icon' viewBox='0 0 54 54'>
+                           <path d='M27 0C12.112 0 0 12.112 0 27s12.112 27 27 27 27-12.112 27-27S41.888 0 27 0zm0 52C13.215 52 2 40.785 2 27S13.215 2 27 2s25 11.215 25 25-11.215 25-25 25z'></path>
+                           <path d='M29.293 17.707L37.586 26H13a1 1 0 1 0 0 2h24.586l-8.293 8.293 1.414 1.414L41.414 27 30.707 16.293l-1.414 1.414z'></path>
+                        </svg>
+                     </label>
+                  </li>
+               </ul>
+            </nav>
+         </section>
+         <input class='toggle' id='experience' name='segment' type='radio'>
+         <section class='segment experience'>
+            <nav class='experience-menu'>
+               <ul class='experience-menu-content'>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-ux'>UX</label> </li>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-front-end'>Front End</label> </li>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-back-end'>Back End</label> </li>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-cloud'>Cloud</label> </li>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-iot'>IoT</label> </li>
+                  <li class='experience-menu-item'> <label class='experience-menu-item-content' for='experience-r-n-d'>R&D</label> </li>
+               </ul>
+            </nav>
+            <input class='toggle' id='experience-ux' name='experience' type='checkbox'>
+            <article class='experience-case experience-ux'>
+               <label class='experience-case-close' for='experience-ux'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <p>Reengineer the mobile application for internal reports & activity monitoring at the enterprise. Improve the interface without interfering in the work of the API. Reduce the time required for completing the main user scenarios. Lower the latency threshold</p>
+                     <h3>Achievement</h3>
+                     <p><strong>80%</strong> of apps use tokens, which were received at the first authorization. <strong>35%</strong> increase in search & filters usage. The time required for completing the main user scenarios were reduced <strong>from 5min to 2min</strong>. <strong>90%</strong> of users do not change the preselected language. Amount of the pages were reduced <strong>from 9 to 3</strong> </p>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Solution</h3>
+                     <p>The system allows to authorize users with different roles. The previous version required repeated authorization with manual input of each role. We were able to simplify that flow without interfering in the work of the API. The current version automatically identifies all user's roles during authorization and stores them locally. It automatically generates requests to the API based on selected role</p>
+                     <p>The system allows to search & filter tickets based on several categories. In the previous version identical elements were separated and used different interfaces. In the current version they are grouped and extend single interface & scenario</p>
+                     <img alt='' src='./ux-1.png'>
+                     <p>The system allows to take a decision on each ticket based on 4 major parameters. In rare cases, additional information is required. The previous version combined major & minor content. The key parameters were not allocated. The identical tools for assessing were separated and used different interfaces. The current version gives direct access to the key parameters and tools for assessing. Minor information is grouped on a separate page</p>
+                     <img alt='' src='./ux-2.png'>
+                     <p>The system is multilingual. It is used by users who have different levels of knowledge. The current version auto-detects OS language & provides up-to-date help. Translations & help are served over CDNs and do not require API or application updates</p>
+                     <h3>Testimonial</h3>
+                     <blockquote>This is great. The best part about this is you were not constrained in your design thinking. We hired a UX consultant last summer for a lot of $$$ and your designs are far better than what he produced. He was trying to give us what he thought we wanted, not what an end user would use</blockquote>
+                  </div>
+               </div>
+            </article>
+            <input class='toggle' id='experience-front-end' name='experience' type='checkbox'>
+            <article class='experience-case experience-front-end'>
+               <label class='experience-case-close' for='experience-front-end'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <p>We develop applications with several goals in mind: <strong>flexibility</strong>, <strong>security</strong> & <strong>performance</strong>. We measure, monitor and improve continually each metric based on the growing complexity from the first to the final release. Our basic principles are:</p>
+                     <ul>
+                        <li> <a href='https://developers.google.com/web/fundamentals/performance/rail'>Follow RAIL model principles</a> </li>
+                        <li> <a href='https://developers.google.com/web/fundamentals/performance/prpl-pattern'>Follow PRPL pattern</a> </li>
+                        <li> <a href='https://https.cio.gov'>Follow HTTPS only standard</a> </li>
+                        <li> <a href='https://developers.google.com/web/progressive-web-apps'>Build PWA</a> </li>
+                        <li>
+                           Audit with
+                           <ul>
+                              <li> <a href='https://www.browserstack.com/'>BrowserStack</a> </li>
+                              <li> <a href='https://www.webpagetest.org'>WebPageTest</a> </li>
+                              <li> <a href='https://developers.google.com/web/tools/lighthouse'>Lighthouse</a> </li>
+                           </ul>
+                        </li>
+                     </ul>
+                     <p>We know that improved experience leads to longer sessions, increased traffic, and additional revenue</p>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Solution</h3>
+                     <p>We work in the environment which is best suited for our customers' needs. Keeping progressive enhancement in mind we design & develop core scenarios first and only then add advanced features</p>
+                     <p>We use Yarn & Webpack to achieve continuous development process and automate repetitive tasks. Inferno and Redux are the heart and soul of our front-end framework. We choose them due to their benchmarks and principles</p>
+                     <p>We use techniques which respect <a href='https://jamstack.org/'>JAMStack</a>. We keep track of assets optimization. We use tree-shaking and code-splitting to reduce payloads. All these and many other techniques are used to improve runtime rendering performance and reduce bundle size</p>
+                     <p>We keep an eye on modern techniques and technologies and use the best of them to deliver tested and documented qualitative products to you</p>
+                     <h3>Testimonial</h3>
+                     <blockquote>As always Oleksii and the team are great to work with and continue to deliver the highest quality</blockquote>
+                     <blockquote>Oleksii is definitely the developer for complex projects. He has great creativity and is excellent in communication his ideas and suggestions to the projects</blockquote>
+                     <blockquote>Oleksii was asked to deliver a platform that would support our business goals. Being a start-up we needed a developer that was efficient and versatile. Oleksii is a developer with these traits. He was able to take on the full stack, end to end, and deliver a system to our requirements. I'm looking forward to a continued productive relationship </blockquote>
+                  </div>
+               </div>
+            </article>
+            <input class='toggle' id='experience-back-end' name='experience' type='checkbox'>
+            <article class='experience-case experience-back-end'>
+               <label class='experience-case-close' for='experience-back-end'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <p>Implement productive, secure, scalable API which serves as an interface between applications & DBs. Its specific goal is to validate & process data based on programmed logic and to handle integrations with third-party services. Unlike popular solutions, it should follow single responsibility principle</p>
+                     <h3>Achievement</h3>
+                     <p>Our initiative has open source & anyone can inspect, modify, and enhance it</p>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Solution</h3>
+                     <p>We engineered an in-house solution for APIs development. It interacts with applications using JSON. It has <strong>NodeJS</strong>, <strong>SequelizeJS</strong> and <strong>KoaJS</strong> under the hood. It has several competitive advantages like self-generated DB migrations & self-generated routing, built-in mailer & the ability for quick & easy splitting into micro-services. Our APIs follow 'fat model, skinny controller' & 'feature-oriented interfaces' patterns. </p>
+                     <p>Instead of reinventing the wheel we created the glue between commonly used stable & reliable technologies and seasoned it with internal methodologies which improve our development experience</p>
+                  </div>
+               </div>
+            </article>
+            <input class='toggle' id='experience-cloud' name='experience' type='checkbox'>
+            <article class='experience-case experience-cloud'>
+               <label class='experience-case-close' for='experience-cloud'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <p>Scale the app from 1 to 100 000 users</p>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Solution</h3>
+                     <p><strong>1 user;</strong> We are against any premature system scaling because it unnecessarily complicates the development process & distracts from the implementation of the major features. In the meantime we always laid the foundation for further optimization We isolate each application, API & DB using Docker containers Docker automates the repetitive tasks of setting up and configuring development environment & guarantees that software will always run the same. We use New Relic for deep performance analytics in real-time. Under prototyping, we use single AWS instance with flexible approach to choose the appropriate resources for the application</p>
+                     <p><strong>1 000 users;</strong> With great activity comes great server load. To prevent loss of performance several recommendations should be taken into account. Amazon Elastic Load Balancing allows quick & easy vertical scaling of the system. Frequently accessed static content should be served from CDNs They allow users to download content from local third party servers instead of our distant servers. This improves performance and also reduces the need to build and maintain own global network</p>
+                     <p><strong>100 000 users;</strong> Beyond the MVP stage increased traffic brings new technical challenges. With growing data arises a need to overthink its storage. Frequent high loading requests should be cached with Memcached Low latency data should be moved to the separate cloud storage Elastic Stack solutions can help too. System updates cost more on later stages. Splitting monolith systems into micro-services allow to decrease that cost. Each service can be developed and deployed independently. They improve fault detection, isolation, and recovery & eliminate any long-term commitment to a technology stack</p>
+                     <p>Premature scaling can lead to unnecessary complications. Belated optimization can cost more. Project architecture design is the long-term process, which requires constant monitoring & adoption of carefully considered and weighed decisions</p>
+                  </div>
+               </div>
+            </article>
+            <input class='toggle' id='experience-iot' name='experience' type='checkbox'>
+            <article class='experience-case experience-iot'>
+               <label class='experience-case-close' for='experience-iot'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <p>Design & develop centralized control system for monitoring & managing of vending machines, remote software updating & internal currency exchanging</p>
+                     <p>Implement the variety of web and mobile applications for direct (authorization, purchases, virtual accounts) & indirect (analysis, configuration, state monitoring & management) interactions with the vending machines. Implement two-way authorization between mobile applications and vending machines with real-time endpoint notification</p>
+                     <p>Provide data synchronization process after losing connection with the devices. Guarantee data integrity after long-term connection drop-outs</p>
+                     <h3>Achievement</h3>
+                     <p>The system is under the beta testing. It monitors & manages several vending machines in the real world</p>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Solution</h3>
+                     <p>The API is developed using in-house solution. It is based on <strong>NodeJS</strong>, <strong>SequelizeJS</strong> and <strong>KoaJS</strong>. <strong>PostgreSQL</strong> is the primary database. Frequent high loading requests are cached with <strong>Memcached</strong>. WebSocket protocol manages real-time updates between server, applications & devices. It allows to update all participants simultaneously and to push data to the certain channels separately</p>
+                     <p>Vending machine can reserve required amount from user's account to guarantee capacity to pay throughout the purchasing</p>
+                     <p>Mobile application is developed using <strong>React Native</strong>. It allows users to manage their accounts & authorize on vending machines using QR codes After successful users identification server immediately provides their data to the device</p>
+                     <p>Server continually collects data from vending machines and allows to create custom rules for its analysis. Data on the states are stored in a separate DB. Admins interact with it through the separate micro-service. It prevents blocking of direct users' interactions with vending machines</p>
+                  </div>
+               </div>
+            </article>
+            <input class='toggle' id='experience-r-n-d' name='experience' type='checkbox'>
+            <article class='experience-case experience-r-n-d'>
+               <label class='experience-case-close' for='experience-r-n-d'>
+                  <svg class='experience-case-icon' viewbox='0 0 30 30'>
+                     <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+                  </svg>
+               </label>
+               <div class='experience-case-left'>
+                  <div class='experience-case-content'>
+                     <h3>Objective</h3>
+                     <ul class='experience-case-r-n-d-projects'>
+                        <li class='experience-case-r-n-d-project'>Turn speech into text during audio & video calls</li>
+                        <li class='experience-case-r-n-d-project'>Manage smart bath through the mobile app & synchronize their states in real-time</li>
+                        <li class='experience-case-r-n-d-project'>Gather statistics on application users' behavior using WebSocket protocol and search, analyze, and visualize it with Elastic Stack</li>
+                        <li class='experience-case-r-n-d-project'>Scale server architecture to avoid blocking of users' requests during the automated process of analysis of big data</li>
+                        <li class='experience-case-r-n-d-project'>Guarantee the safety and success of currency transactions between server and vending machines</li>
+                        <li class='experience-case-r-n-d-project'>Synchronize time frames for the issues' completion on ticket tracker which allows assigners & assignees to work in different time zones</li>
+                        <li class='experience-case-r-n-d-project'>Choose the most convenient WebRTC solution & implement video/audio calls using it</li>
+                        <li class='experience-case-r-n-d-project'>Suggest the most convenient solution for real-time messenger</li>
+                        <li class='experience-case-r-n-d-project'>Parse content with Cloud Natural Language API</li>
+                     </ul>
+                  </div>
+               </div>
+               <div class='experience-case-right'>
+                  <div class='experience-case-content'>
+                     <h3>Testimonial</h3>
+                     <blockquote>Oleksii is absolutely one of the best developers I know. Without a doubt. He is not only codes, he does research, spends time in understanding and suggesting ideas where needed. Just hire him and you’ll agree! Oleksii is a super contractor. Very professional with great communication. His management skills are astounding, he always went above and beyond the task, always encouraging and pushing the team to work hard and stick to deadlines. Extraordinary professional! It has been an honor to work with someone of his nature and caliber. For me, one of his most important skill sets is his ability to self-manage and keep our projects moving forward no matter my availability or the lack thereof. No worries once you have agreed on a game plan and a course of action. Additionally, Oleksii puts his heart and soul into his work. He gives you everything he’s got when he gets into a project. I am humbled to have worked with someone of such high integrity and so committed to our mutual success. A truly great business partner. He was easy to work & communicate with. He and his team also brought some good ideas to the project. Would hire him again, definitely</blockquote>
+                     <blockquote>As always, Oleksiis quality of work is outstanding, combined with great tech and communication skills. Great availability paired with a lot of understanding & know-how AND, what I like most, own suggestions which are beneficial to each of my projects. This proofs, that he is not only a good programmer and worker but also a good team player who is thinking ahead</blockquote>
+                  </div>
+               </div>
+            </article>
+         </section>
+         <input class='toggle' id='contact' name='form' type='checkbox'> <label class='form-wrapper' for='contact'></label>
+         <section class='form'>
+            <label class='form-close' for='contact'>
+               <svg class='form-close-icon' viewbox='0 0 30 30'>
+                  <path d='M30 1.363L28.637 0 15 13.637 1.363 0 0 1.363 13.637 15 0 28.637 1.363 30 15 16.363 28.637 30 30 28.637 16.363 15z'></path>
+               </svg>
+            </label>
+            <form action='https://formspree.io/contact@rstation.io' class='form-content' method='POST'>
+               <h2 class='form-title'>Let's work together</h2>
+               <p class='form-descr'>Fill the form below so we can learn more about your needs</p>
+               <label class='form-label' for='name'>What's your name?</label> <input class='form-input' id='name' name='name' type='name'> <label class='form-label' for='email'>What email can we reach you at?</label> <input class='form-input' id='email' name='email' type='email'> <label class='form-label' for='message'>Tell us a bit about your project</label>
+               <textarea class='form-input' id='message' name='message' rows='6'></textarea>
+               <button class='form-button'>Send my message</button>
+            </form>
+         </section>
+         <nav class='menu'>
+            <ul class='menu-content'>
+               <li class='menu-item'> <label class='menu-item-content' for='hero'><span class='menu-item-text'>Intro</span> </label> </li>
+               <li class='menu-item'> <label class='menu-item-content' for='about'><span class='menu-item-text'>About</span> </label> </li>
+               <li class='menu-item'> <label class='menu-item-content' for='experience'><span class='menu-item-text'>Experience</span> </label> </li>
+               <li class='menu-item'> <label class='menu-item-content menu-item-content-contact' for='contact'><span class='menu-item-text'>Contact</span> </label> </li>
+            </ul>
+         </nav>
+      </section>
+   </body>
+</html>

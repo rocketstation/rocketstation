@@ -1,0 +1,15 @@
+{
+  "author": "Rocket Station <contact@rstation.io> (https://rstation.io)",
+  "contributors": [
+    "Oleksii Bilous <oleksiibilous@rstation.io> (https://rstation.io)",
+    "Oleksii Pysanko <oleksiipysanko@rstation.io> (https://rstation.io)"
+  ],
+  "description": "our core repository",
+  "dependencies": {
+    "prettier": "1"
+  },
+  "license": "MIT",
+  "name": "rocketstation",
+  "repository": "github:rocketstation/rocketstation",
+  "version": "1.0.0"
+}
